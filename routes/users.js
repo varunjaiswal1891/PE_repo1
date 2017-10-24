@@ -65,10 +65,26 @@ router.post('/authenticate',(req,res,next) =>{
     });
 });
 
-//Profile
-router.get('/profile',passport.authenticate('jwt',{session:false}),(req,res,next) =>{
-    res.json({user:req.user});
+
+router.get('/profile/:id', function(req, res) {
+    var id = req.params.id;
+    console.log('hereeeeee id ye hai ');
+    console.log(id);
+    User.findById(req.params.id, function (err, users) {
+        if(err) { return handleError(res, err); }
+        return res.json(users);
+        });
+    // 59eb7add15c71d0c2958c057
 });
+
+//Profile
+/*router.get('/profile',(req,res,next) =>{
+
+    console.log('hereeeeee');
+     User.find(function(err,users){
+         res.json(users);
+     });
+});*/
 
 //Validate
 router.get('/validate',(req,res,next) =>{

@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const passport = require('passport');
+// const passport = require('passport');
 const mongoose = require('mongoose');
 
 // for DB connection using our DB connection  config file
@@ -21,7 +21,7 @@ const app =express();
 const users =require('./routes/users');
 
 // port number
-const port = 3000;
+const port = 11000;
 
 //cors middleware
 app.use(cors()); // used for cross domain request
@@ -35,10 +35,10 @@ app.use(express.static(path.join(__dirname,'public')));
 app.use(bodyParser.json());
 
 //passport middleware for authentication
-app.use(passport.initialize());
-app.use(passport.session());
+ // app.use(passport.initialize());
+// app.use(passport.session());
 
-require('./config/passport')(passport);
+// require('./config/passport')(passport);
 
 
 app.use('/users',users);

@@ -11,23 +11,38 @@ export class AuthService {
   registerUser(user) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/users/register', user, {headers: headers})
+    return this.http.post('http://localhost:11000/users/register', user, {headers: headers})
     .map( res => res.json());
   }
 
   authenticateUser(user) {
     const headers = new Headers();
     headers.append('Content-Type', 'application/json');
-    return this.http.post('http://localhost:3000/users/authenticate', user, {headers: headers})
+    return this.http.post('http://localhost:11000/users/authenticate', user, {headers: headers})
     .map( res => res.json());
   }
 
-  getProfile() {
+ /* getProfile() {
     const headers = new Headers();
     this.loadToken();
-    headers.append('Authorization', this.authToken);
+   headers.append('Authorization', this.authToken);
     headers.append('Content-Type', 'application/json');
-    return this.http.get('http://localhost:3000/users/profile', {headers: headers})
+    return this.http.get('http://localhost:11000/users/profile', {headers: headers})
+    .map( res => res.json());
+  } */
+
+  getProfile() {
+    console.log('in get profile ');
+    const headers = new Headers();
+    this.loadToken();
+   headers.append('Authorization', this.authToken);
+   headers.append('Content-Type', 'application/json');
+    const u1 = localStorage.getItem('user');
+    this.user = u1;
+    const j1 = JSON.parse(u1);
+    const id = j1.id;
+    console.log(j1.id);
+    return this.http.get('http://localhost:11000/users/profile/' + id, {headers: headers})
     .map( res => res.json());
   }
 
@@ -41,7 +56,7 @@ export class AuthService {
   loadToken() {
     const token = localStorage.getItem('id_token');
     this.authToken = token;
-    console.log(this.authToken);
+   // console.log(this.authToken);
   }
 
   loggedIn() {
